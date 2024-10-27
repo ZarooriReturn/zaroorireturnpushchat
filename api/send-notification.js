@@ -25,11 +25,12 @@ export default async function handler(req, res) {
 
         try {
             // Send notification to the specified Webpushr Subscriber ID
-            const response = await axios.post(`https://api.webpushr.com/v1/notification/send/${sid}`, {
-                title: title,
-                message: message,
-                target_url: target_url
-            }, {
+           const response = await axios.post(`https://api.webpushr.com/v1/notification/send/${sid}`, {
+    title: title,
+    message: message,
+    target_url: target_url,
+    sid: sid
+}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'webpushrKey': 'e64811450652a664a4f9a7d2c78d2127',  // Use your Webpushr API key
