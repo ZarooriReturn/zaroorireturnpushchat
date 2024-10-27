@@ -28,6 +28,7 @@ export default async function handler(req, res) {
             const response = await axios.post(`https://api.webpushr.com/v1/notification/send/${sid}`, {
                 title: title,
                 message: message,
+                sid: sid,
                 target_url: target_url
             }, {
                 headers: {
