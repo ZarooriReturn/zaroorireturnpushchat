@@ -34,7 +34,7 @@ export default async function handler(req, res) {
                 headers: {
                     'Content-Type': 'application/json',
                     'webpushrKey': 'e64811450652a664a4f9a7d2c78d2127',  // Use your Webpushr API key
-                    'webpushrAuthToken': 'e33e36e12570ca28ebc5d8e67c3ed207' // Use your Webpushr Auth token
+                    'webpushrAuthToken': '95418' // Use your Webpushr Auth token
                 }
             });
 
