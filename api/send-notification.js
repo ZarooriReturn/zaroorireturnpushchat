@@ -25,17 +25,18 @@ export default async function handler(req, res) {
 
         try {
             // Send notification to the specified Webpushr Subscriber ID
-           const response = await axios.post(`https://api.webpushr.com/v1/notification/send/${sid}`, {
-    title: title,
-    message: message,
-    target_url: target_url,
-    sid: sid
-}, {
+            const response = await axios.post(`https://api.webpushr.com/v1/notification/send/${sid}`, {
+                title: title,
+                message: message,
+                target_url: target_url,
+                sid: sid
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'webpushrKey': 'e64811450652a664a4f9a7d2c78d2127',  // Use your Webpushr API key
                     'webpushrAuthToken': '95418' // Use your Webpushr Auth token
-                }
+                },
+                timeout: 5000 // Set a timeout
             });
 
             // Check the response from Webpushr API
@@ -52,10 +53,11 @@ export default async function handler(req, res) {
                 });
             }
         } catch (error) {
-            console.error('Error sending notification:', error);
+            console.error('Error sending notification:', error.response || error);
             res.status(error.response ? error.response.status : 500).json({
                 status: 'error',
-                description: error.response ? error.response.data.description : 'Internal Server Error'
+                description: error.response ? error.response.data.description : 'Internal Server Error',
+                error: error.toString() // Log the error message
             });
         }
     } else {
