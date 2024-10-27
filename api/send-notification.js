@@ -28,8 +28,7 @@ export default async function handler(req, res) {
             const response = await axios.post(`https://api.webpushr.com/v1/notification/send/${sid}`, {
                 title: title,
                 message: message,
-                target_url: target_url,
-                sid: sid // Use the passed Subscriber ID
+                target_url: target_url
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,11 +37,19 @@ export default async function handler(req, res) {
                 }
             });
 
-            res.status(200).json({
-                status: 'success',
-                description: 'Notification sent successfully!',
-                data: response.data // Include response data for further checks if needed
-            });
+            // Check the response from Webpushr API
+            if (response.data.status === 'success') {
+                return res.status(200).json({
+                    status: 'success',
+                    description: 'Notification sent successfully!',
+                    data: response.data
+                });
+            } else {
+                return res.status(500).json({
+                    status: 'error',
+                    description: response.data.description
+                });
+            }
         } catch (error) {
             console.error('Error sending notification:', error);
             res.status(error.response ? error.response.status : 500).json({
