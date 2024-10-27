@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-        const { title, message, target_url } = req.body;
+        const { title, message, target_url, user_id } = req.body; // Accept user_id from the request
 
         try {
             // Send notification to the specified Webpushr User ID
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
                 title: title,
                 message: message,
                 target_url: target_url,
-                user_id: '158927973' // Target specific Webpushr User ID
+                user_id: user_id // Use the passed user ID
             }, {
                 headers: {
                     'Content-Type': 'application/json',
